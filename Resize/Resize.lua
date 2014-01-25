@@ -1,11 +1,4 @@
 local e = {}
-local fmod = math.fmod
-local abs = math.abs
-local sqrt = math.sqrt
-local sin = math.sin
-local cos = math.cos
-local floor = math.floor
-local rad = math.rad
 
 e.GetBackdrop = function()
 	return {
