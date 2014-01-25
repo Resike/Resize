@@ -116,6 +116,10 @@ t:SetScript("OnSizeChanged", function(o)
 	local n = o:GetWidth()
 	local n = n / e.windowWidth
 	t.gameBoardContainer:SetScale(n)
+	local childrens = {t:GetChildren()}
+	for _, child in ipairs(childrens) do
+		child:SetScale(n)
+	end
 	local e = e.windowHeight * n
 	o:SetHeight(e)
 	local n = t.topCover
@@ -145,69 +149,3 @@ r:SetBackdropColor(0, 0, 0, 0)
 r:SetBackdropBorderColor(1, 0, 0, 0)
 n:SetScrollChild(r)
 t.gameBoardContainer = n
-
-local se = 260
-local be = - 248
-
-r:SetScript("OnUpdate", function(n, o)
-	local s, a = GetCursorPosition()
-	local g, h, S, u = n:GetRect()
-	local c = n:GetEffectiveScale()
-	if n.fineX then
-		if abs(n.fineX - s) < 5 and abs(n.fineY - a) < 5 then
-			return
-		end
-		n.fineX = nil
-		n.fineY = nil
-	end
-	local l, o
-	l = s / c - g
-	if l >= 0 and l <= S then
-		o = a / c - h
-		if o >= 0 and o <= u then
-			if n.lastX ~= l or n.lastY ~= o then
-				local c = e.boardWidth / 2
-				local s = e.boardHeight - 16 - 20
-				local a, h = l, o
-				local S = a - c
-				local a =  - (h - s)
-				local h = se ^ 4
-				local u = (be * S ^ 2)
-				local a = 2 * a * (se ^ 2)
-				local u = h - be * (u + a)
-				local h, a
-				if u > 0 then
-					local e = sqrt(u)
-					a =  - atan(((se ^ 2) - e) / (be * S))
-					if(S < 0)then
-						a = a - 180
-					end
-					h = fmod(a + 360, 360)
-				end
-				n.lastX = l
-				n.lastY = o
-				N = h or(N)
-				if N > 25 and N < 155 then
-					if(N < 90)then
-						N = 25
-					else
-						N = 155
-					end
-				end
-				local h = (se * cos(rad(N)))
-				local S = (se * sin(rad(N)))
-				local a = (e.boardWidth / 2)
-				local u = (e.boardHeight - 16) - 20
-				local g, o, l, n
-				for e = 1, 4 do
-					n = ((e - 1) / 10 * 1 / 1.85)
-					o = a + h * n
-					l = u + S * n + .5 * be * (n ^ 2)
-					if e == 4 then
-						ue = fmod(atan2(s - l + 4, c - o) + 180, 360)
-					end
-				end
-			end
-		end
-	end
-end)
