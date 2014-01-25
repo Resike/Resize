@@ -1,4 +1,5 @@
 local e = {}
+local fmod = math.fmod
 
 e.GetBackdrop = function()
 	return {
@@ -111,7 +112,9 @@ t:SetScript("OnSizeChanged", function(o)
 	t.gameBoardContainer:SetScale(n)
 	local childrens = {t:GetChildren()}
 	for _, child in ipairs(childrens) do
-		child:SetScale(n)
+		if child ~= l then
+			child:SetScale(n)
+		end
 	end
 	local e = e.windowHeight * n
 	o:SetHeight(e)
